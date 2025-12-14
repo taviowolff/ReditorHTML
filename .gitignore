@@ -1,0 +1,13 @@
+# Ignorar pastas geradas pelo PyInstaller
+/build/
+/dist/
+
+# Ignorar o arquivo de especificação do PyInstaller
+ReditorHTML.spec
+
+# Ignorar a pasta 'icon' que contém seu recurso de ícone
+/icon/
+
+# Ignorar executáveis e binários do sistema
+*.dll
+*.so
