@@ -1,7 +1,7 @@
 # Ignorar pastas geradas pelo PyInstaller e outros artefatos de build
 /build/
 /dist/
-ReditorHTML.spec  # <--- AGORA ESTE ARQUIVO SERÁ IGNORADO
+ReditorHTML.spec  
 
 # Ignorar a pasta 'icon' que contém seu recurso de ícone
 /icon/
