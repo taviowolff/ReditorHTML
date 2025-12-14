@@ -6,6 +6,5 @@ ReditorHTML.spec
 /icon/
 
 # Ignorar executáveis e binários do sistema
-*.exe
 *.dll
 *.so
