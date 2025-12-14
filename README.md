@@ -29,7 +29,7 @@ Utilize os seguintes atalhos no painel de **Texto de Entrada** para formatar seu
 
 ---
 
-## 📚 Regras de Formatação e Padrões (Importante para a Equipe)
+## 📚 Regras de Formatação e Padrões
 
 Este editor foi configurado para respeitar um padrão de espaçamento e estrutura que deve ser seguido pela equipe para garantir a consistência no blog.
 
