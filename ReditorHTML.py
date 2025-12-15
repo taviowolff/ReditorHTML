@@ -34,7 +34,7 @@ class HTMLTranslatorApp:
         # 1. Menu Arquivo
         file_menu = tk.Menu(menubar, tearoff=0)
         menubar.add_cascade(label="Arquivo", menu=file_menu)
-        file_menu.add_command(label="Salvar HTML como...", command=self.save_file_dialog)
+        file_menu.add_command(label="Salvar arquivo como...", command=self.save_file_dialog)
         file_menu.add_separator()
         file_menu.add_command(label="Sair", command=master.quit)
         
@@ -139,11 +139,12 @@ class HTMLTranslatorApp:
 
     def show_shortcuts(self):
         shortcuts_text = (
-            "🚀 Atalhos do Reditor HTML:\n\n"
+            "Atalhos do Reditor HTML:\n\n"
             "   Ctrl + I:  Itálico (<i>...</i>)\n"
             "   Ctrl + B:  Negrito (<b>...</b>)\n"
             "   Ctrl + L:  Quebra de Linha (<br>)\n"
             "   Ctrl + P:  Parágrafo (<p>...</p>)\n"
+            "   Ctrl + H:  Parágrafo (<h1>...</h1>)\n"
             "   Enter:     Nova Linha visual no editor"
         )
         messagebox.showinfo("Atalhos", shortcuts_text)
@@ -153,7 +154,7 @@ class HTMLTranslatorApp:
             "Sobre o Aplicativo",
             "Reditor HTML\n\n"
             "Desenvolvido por: Otávio Wolff Buffon\n"
-            "Versão: 1.0 (2025)"
+            "Versão: 1.1 (2025)"
         )
 
     # FUNÇÕES DE ATALHOS E TEXTO
@@ -168,6 +169,7 @@ class HTMLTranslatorApp:
         self.input_text.bind('<Control-b>', lambda event: self.apply_html_tag(event, 'b'))
         self.input_text.bind('<Control-l>', lambda event: self.apply_html_tag(event, 'br')) 
         self.input_text.bind('<Control-p>', lambda event: self.apply_html_tag(event, 'p'))
+        self.input_text.bind('<Control-h>', lambda event: self.apply_html_tag(event, 'h1'))
 
     def apply_html_tag(self, event, tag):
         self.input_text.edit_modified(False)
