@@ -69,7 +69,7 @@ class HTMLTranslatorApp:
         self.copy_button.pack(side=tk.RIGHT, padx=5)
 
         tk.Label(self.input_frame, text="Texto (Atalhos para dicas)").pack(pady=5)
-        self.input_text = scrolledtext.ScrolledText(self.input_frame, wrap=tk.WORD, height=20, width=50)
+        self.input_text = scrolledtext.ScrolledText(self.input_frame, wrap=tk.WORD, height=20, width=50, undo=True, autoseparators=True)
         self.input_text.pack(fill=tk.BOTH, expand=True)
 
         self.html_output = scrolledtext.ScrolledText(self.output_frame, wrap=tk.WORD, height=20, width=50, state='disabled')
@@ -142,10 +142,14 @@ class HTMLTranslatorApp:
             "Atalhos do Reditor HTML:\n\n"
             "   Ctrl + I:  Itálico (<i>...</i>)\n"
             "   Ctrl + B:  Negrito (<b>...</b>)\n"
+            "   Ctrl + S:  Destaque (<strong>...</strong>)\n"
+            "   Ctrl + U:  Sublinhado (<u>...</u>)\n"
             "   Ctrl + L:  Quebra de Linha (<br>)\n"
             "   Ctrl + P:  Parágrafo (<p>...</p>)\n"
-            "   Ctrl + H:  Parágrafo (<h1>...</h1>)\n"
-            "   Enter:     Nova Linha visual no editor"
+            "   Ctrl + H + n:  Parágrafo (<h1> a </h6>)\n"
+            "   Enter:     Nova Linha visual no editor\n"
+            "   Ctrl + Z:    Desfazer a ação\n"
+            "   Ctrl + Y:    Refazer a ação"
         )
         messagebox.showinfo("Atalhos", shortcuts_text)
 
@@ -154,7 +158,7 @@ class HTMLTranslatorApp:
             "Sobre o Aplicativo",
             "Reditor HTML\n\n"
             "Desenvolvido por: Otávio Wolff Buffon\n"
-            "Versão: 1.1 (2025)"
+            "Versão: 1.2 (2025)"
         )
 
     # FUNÇÕES DE ATALHOS E TEXTO
@@ -167,9 +171,47 @@ class HTMLTranslatorApp:
     def bind_shortcuts(self):
         self.input_text.bind('<Control-i>', lambda event: self.apply_html_tag(event, 'i'))
         self.input_text.bind('<Control-b>', lambda event: self.apply_html_tag(event, 'b'))
+        self.input_text.bind('<Control-s>', lambda event: self.apply_html_tag(event, 'strong'))
+        self.input_text.bind('<Control-u>', lambda event: self.apply_html_tag(event, 'u'))
         self.input_text.bind('<Control-l>', lambda event: self.apply_html_tag(event, 'br')) 
         self.input_text.bind('<Control-p>', lambda event: self.apply_html_tag(event, 'p'))
-        self.input_text.bind('<Control-h>', lambda event: self.apply_html_tag(event, 'h1'))
+       
+        # Início da Sequência para Títulos (Ctrl + H)
+        # Ao apertar Ctrl+H, o programa espera você digitar um número de 1 a 6
+        self.input_text.bind('<Control-h>', self.start_heading_sequence)
+
+    def start_heading_sequence(self, event):
+        # Recebe o nível do título (1-6) após Ctrl+H.
+        # Muda o cursor para indicar que o app está esperando um comando
+        self.input_text.config(cursor="question_arrow")
+
+        # Previne a digitação normal enquanto espera o número
+        self.input_text.bind('<Key>', lambda e: "break")
+        
+        # Binds temporários para os números de 1 a 6
+        for i in range(1, 7):
+            self.input_text.bind(str(i), lambda e, n=i: self.finish_heading_sequence(e, n))
+            
+        # ESC para cancelar a operação caso o usuário desista do título
+        self.input_text.bind('<Escape>', lambda e: self.finish_heading_sequence(e, None))
+        
+        return 'break' 
+
+    def finish_heading_sequence(self, event, level):
+        """Aplica a tag Hn e restaura o comportamento normal do teclado"""
+        if level:
+            self.apply_html_tag(None, f'h{level}')
+        
+        # Restaura o cursor original
+        self.input_text.config(cursor="")
+        
+        # Desvincula o bloqueio de teclas e os números
+        self.input_text.unbind('<Key>')
+        for i in range(1, 7):
+            self.input_text.unbind(str(i))
+        self.input_text.unbind('<Escape>')
+        
+        return 'break'
 
     def apply_html_tag(self, event, tag):
         self.input_text.edit_modified(False)

@@ -1,71 +1,63 @@
 # Reditor HTML
 
-Este é um aplicativo de desktop simples e eficiente, desenvolvido em Python com a biblioteca Tkinter, projetado para ajudar na produção de conteúdo HTML formatado para blogs.
+O **Reditor HTML** é uma ferramenta de produtividade para desktop desenvolvida em Python (Tkinter). Seu objetivo é otimizar a conversão de textos convencionais para o formato HTML, garantindo a padronização técnica necessária para publicações no blog da Databasers.
 
-Ele permite que o usuário escreva texto simples e aplique formatação HTML (parágrafos, negrito, itálico e quebras de linha) usando atalhos de teclado, gerando o código HTML limpo e pronto para ser copiado e colado na plataforma de gerenciamento de conteúdo.
+A aplicação processa o texto em tempo real, permitindo a inserção de tags semânticas e estruturais através de comandos de teclado, resultando em um código limpo e pronto para implementação em sistemas de gerenciamento de conteúdo (CMS).
+
+## Funcionalidades Principais
+
+* **Processamento em Tempo Real:** Visualização imediata do código HTML gerado conforme a edição no painel de entrada.
+* **Interface Multi-tema:** Suporte a modos de visualização Claro e Escuro para maior conforto visual.
+* **Gestão de Documentos:** Exportação direta do conteúdo processado para arquivos com extensão `.html`.
+* **Sistema de Histórico:** Suporte nativo para operações de desfazer e refazer (Undo/Redo).
+
+## Comandos de Produtividade (Atalhos)
+
+Abaixo estão listados os comandos configurados para a manipulação rápida de tags no painel de edição.
+
+| Atalho | Ação Executada | Tag Resultante |
+| --- | --- | --- |
+| **Ctrl + P** | Envolve o texto em um parágrafo | `<p>...</p>` |
+| **Ctrl + B** | Aplica negrito simples | `<b>...</b>` |
+| **Ctrl + S** | Aplica destaque semântico (Strong) | `<strong>...</strong>` |
+| **Ctrl + I** | Aplica itálico | `<i>...</i>` |
+| **Ctrl + U** | Aplica sublinhado | `<u>...</u>` |
+| **Ctrl + L** | Insere quebra de linha | `<br>` |
+| **Ctrl + H + (1-6)** | Inicia sequência para níveis de título | `<h1>` a `<h6>` |
+| **Ctrl + Z / Y** | Desfazer / Refazer alteração | N/A |
+| **Escape** | Cancela sequência de comando ativa | N/A |
+
+## Padrões de Formatação e Regras Estruturais
+
+Para manter a consistência estética do blog, a equipe deve observar as seguintes diretrizes de uso da ferramenta:
+
+### Estruturação de Parágrafos
+
+* A tag `<p>` deve delimitar cada bloco principal de pensamento ou informação.
+* Utilize o atalho **Ctrl + P** com o texto selecionado para garantir o fechamento correto da tag.
+
+### Controle de Espaçamento Interno
+
+* **Quebras Simples:** Utilize **Ctrl + L** (`<br>`) para quebras de linha dentro do mesmo bloco de texto.
+* **Espaçamento entre Blocos:** Para manter o padrão visual de espaçamento duplo entre parágrafos, recomenda-se a inserção de duas tags `<br>` após o fechamento de cada parágrafo (`</p><br><br>`).
+
+## Guia de Instalação e Execução
+
+### Requisitos de Sistema
+
+O aplicativo é distribuído como um executável independente (Standalone), não sendo necessária a instalação prévia de interpretadores Python ou bibliotecas adicionais no ambiente do usuário.
+
+### Instruções de Uso
+
+1. Execute o arquivo `ReditorHTML.exe`.
+2. Insira o texto original no painel esquerdo.
+3. Utilize os atalhos para aplicar a formatação desejada.
+4. Clique em **Copiar HTML** ou utilize o menu **Arquivo > Salvar** para obter o código final.
 
 ---
 
-## 🛠️ Funcionalidades Principais
+## Informações Técnicas
 
-* **Edição Rápida:** Dois painéis, um para entrada de texto e outro para visualização e cópia do HTML final.
-* **Atalhos de Produtividade:** Aplicação instantânea de tags HTML via atalhos.
-* **Controle de Tema:** Opção de alternar entre os temas Claro e Escuro (`light`/`dark`).
-* **Gerenciamento de Arquivos:** Opção para Salvar o código HTML gerado diretamente em um arquivo `.html`.
-
----
-
-## ⌨️ Atalhos de Teclado (Produtividade)
-
-Utilize os seguintes atalhos no painel de **Texto de Entrada** para formatar seu conteúdo:
-
-| Comando | Descrição | Tag HTML Gerada |
-| :--- | :--- | :--- |
-| **Ctrl + P** | **Parágrafo:** Cria as tags de abertura e fechamento de parágrafo. Se o texto estiver selecionado, envolve a seleção. | `<p>Conteúdo</p>` |
-| **Ctrl + B** | **Negrito:** Cria as tags de abertura e fechamento de negrito. | `<b>Conteúdo</b>` |
-| **Ctrl + I** | **Itálico:** Cria as tags de abertura e fechamento de itálico. | `<i>Conteúdo</i>` |
-| **Ctrl + L** | **Quebra de Linha:** Insere uma quebra de linha. | `<br>` |
-| **Enter** | **Nova Linha Visual:** Apenas move o cursor para a próxima linha no editor, facilitando a visualização do código-fonte. | `\n` (Ignorado no HTML final) |
-
----
-
-## 📚 Regras de Formatação e Padrões
-
-Este editor foi configurado para respeitar um padrão de espaçamento e estrutura que deve ser seguido pela equipe para garantir a consistência no blog.
-
-### 1. Estrutura de Parágrafos (`<p>`)
-
-* **Quando usar `<p>`:** A tag `<p>` (Parágrafo) deve ser usada para envolver blocos inteiros de texto que representam um bloco coeso.
-* **Como usar:** Use o atalho **Ctrl + P** para iniciar um novo parágrafo.
-* **Regra:** **Cada bloco de texto principal (cada "insert") deve ser um `<p>` separado.**
-
-### 2. Controle de Quebra de Linha (`<br>`)
-
-O editor assume que você está no controle total das quebras de linha dentro do seu texto:
-
-* **Pular Linha/Quebra Curta:** Para forçar uma quebra de linha visual dentro do mesmo parágrafo (sem iniciar um novo bloco `<p>`), utilize o atalho **Ctrl + L** para inserir a tag `<br>`.
-* **Espaçamento Padrão (Recomendado):**
-    * Para criar um espaçamento vertical confortável (como se fosse um Enter duplo), é **recomendável utilizar a tag `<br>` até 2 vezes** (ex: `<br><br>`) para manter um padrão de espaçamento visível no blog.
-    * **Ao final de todo parágrafo (`</p>`), também é recomendável utilizar a tag `<br>` (ex: `</p><br><br>`).**
-
----
-
-## 💾 Instalação e Uso
-
-### 1. Requisitos
-
-O aplicativo é um executável independente e **não requer a instalação do Python**.
-
-### 2. Executando
-
-1.  Baixe o arquivo executável (`ReditorHTML.exe`).
-2.  Dê um duplo clique no arquivo para iniciar o aplicativo.
-
-### 3. Opções do Menu
-
-| Menu | Opção | Ação |
-| :--- | :--- | :--- |
-| **Arquivo** | Salvar HTML como... | Salva o conteúdo do painel "Saída HTML" em um arquivo `.html` no seu computador. |
-| **Atalhos** | Mostrar Atalhos | Exibe a lista completa de atalhos e suas tags correspondentes. |
-| **Mais** | Tema > Claro/Escuro | Alterna o esquema de cores da aplicação. |
-| **Mais** | Sobre | Exibe informações sobre a autoria e a versão do software.
+* **Desenvolvedor:** Otávio Wolff Buffon
+* **Versão:** 1.2
+* **Ambiente:** Python 3.14.0/ Tkinter
