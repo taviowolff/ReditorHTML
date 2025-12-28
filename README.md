@@ -1,6 +1,6 @@
 # Reditor HTML
 
-O **Reditor HTML** é uma ferramenta de produtividade para desktop desenvolvida em Python (Tkinter). Seu objetivo é otimizar a conversão de textos convencionais para o formato HTML, garantindo a padronização técnica necessária para publicações no blog da Databasers.
+O **Reditor HTML** é uma ferramenta de produtividade para desktop desenvolvida em Python (Tkinter). Seu objetivo é otimizar a conversão de textos convencionais para o formato HTML, garantindo a padronização técnica necessária para publicações de blogs
 
 A aplicação processa o texto em tempo real, permitindo a inserção de tags semânticas e estruturais através de comandos de teclado, resultando em um código limpo e pronto para implementação em sistemas de gerenciamento de conteúdo (CMS).
 
