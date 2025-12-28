@@ -47,6 +47,13 @@ Para manter a consistência estética do blog, a equipe deve observar as seguint
 
 O aplicativo é distribuído como um executável independente (Standalone), não sendo necessária a instalação prévia de interpretadores Python ou bibliotecas adicionais no ambiente do usuário.
 
+### Instalação e Execução
+Para utilizar o ReditorHTML sem a necessidade de configurar um ambiente de desenvolvimento Python, você pode baixar o executável diretamente pelo link abaixo:
+
+Download do Aplicativo (.exe): [ReditorHTML.exe](https://github.com/taviowolff/ReditorHTML/blob/main/dist/ReditorHTML.exe)
+
+[!TIP] Após baixar o arquivo, basta executá-lo para iniciar o editor. Caso o Windows exiba um alerta de segurança (SmartScreen), clique em "Mais informações" e "Executar assim mesmo", pois o executável não possui assinatura digital de desenvolvedor.
+
 ### Instruções de Uso
 
 1. Execute o arquivo `ReditorHTML.exe`.
