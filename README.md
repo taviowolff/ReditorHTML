@@ -52,7 +52,7 @@ Para utilizar o ReditorHTML sem a necessidade de configurar um ambiente de desen
 
 Download do Aplicativo (.exe): [ReditorHTML.exe](https://github.com/taviowolff/ReditorHTML/blob/main/dist/ReditorHTML.exe)
 
-[!TIP] Após baixar o arquivo, basta executá-lo para iniciar o editor. Caso o Windows exiba um alerta de segurança (SmartScreen), clique em "Mais informações" e "Executar assim mesmo", pois o executável não possui assinatura digital de desenvolvedor.
+Obs: Após baixar o arquivo, basta executá-lo para iniciar o editor. Caso o Windows exiba um alerta de segurança (SmartScreen), clique em "Mais informações" e "Executar assim mesmo", pois o executável não possui assinatura digital de desenvolvedor.
 
 ### Instruções de Uso
 
