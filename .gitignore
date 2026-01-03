@@ -8,3 +8,6 @@ ReditorHTML.spec
 # Ignorar executáveis e binários do sistema
 *.dll
 *.so
+
+# Ignorar arquivos temporários e de cache
+window.py

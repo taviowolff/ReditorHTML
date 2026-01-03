@@ -1,19 +1,18 @@
-# Reditor HTML
+# ReditorHTML (v1.3 - Live Preview Edition)
 
-O **Reditor HTML** é uma ferramenta de produtividade para desktop desenvolvida em Python (Tkinter). Seu objetivo é otimizar a conversão de textos convencionais para o formato HTML, garantindo a padronização técnica necessária para publicações de blogs
+O **Reditor HTML** é uma ferramenta de produtividade para desktop desenvolvida em Python. Seu objetivo é otimizar a conversão de textos e documentos do Word para o formato HTML, garantindo a padronização técnica necessária para publicações em blogs e sistemas de gerenciamento de conteúdo (CMS).
 
-A aplicação processa o texto em tempo real, permitindo a inserção de tags semânticas e estruturais através de comandos de teclado, resultando em um código limpo e pronto para implementação em sistemas de gerenciamento de conteúdo (CMS).
+A aplicação processa o conteúdo em tempo real, permitindo a inserção de tags semânticas e estruturais através de comandos de teclado, resultando em um código limpo e pronto para implementação.
 
 ## Funcionalidades Principais
 
-* **Processamento em Tempo Real:** Visualização imediata do código HTML gerado conforme a edição no painel de entrada.
-* **Interface Multi-tema:** Suporte a modos de visualização Claro e Escuro para maior conforto visual.
-* **Gestão de Documentos:** Exportação direta do conteúdo processado para arquivos com extensão `.html`.
-* **Sistema de Histórico:** Suporte nativo para operações de desfazer e refazer (Undo/Redo).
+* **Live Preview:** Painel de visualização que utiliza um motor de navegador integrado para exibir a renderização real do HTML.
+* **Importação de Documentos:** Suporte para arquivos .docx com conversão automática para HTML semântico.
+* **Sanitização de Código:** Limpeza automática de âncoras internas do Word e decodificação de entidades HTML (conversão de aspas e caracteres especiais).
+* **Interface Multi-tema:** Suporte aos modos Claro e Escuro para adaptação ao ambiente de trabalho.
+* **Sistema de Histórico:** Suporte completo para operações de desfazer e refazer (Undo/Redo).
 
 ## Comandos de Produtividade (Atalhos)
-
-Abaixo estão listados os comandos configurados para a manipulação rápida de tags no painel de edição.
 
 | Atalho | Ação Executada | Tag Resultante |
 | --- | --- | --- |
@@ -23,48 +22,43 @@ Abaixo estão listados os comandos configurados para a manipulação rápida de 
 | **Ctrl + I** | Aplica itálico | `<i>...</i>` |
 | **Ctrl + U** | Aplica sublinhado | `<u>...</u>` |
 | **Ctrl + L** | Insere quebra de linha | `<br>` |
-| **Ctrl + H + (1-6)** | Inicia sequência para níveis de título | `<h1>` a `<h6>` |
+| **Ctrl + H + (1-6)** | Sequência para níveis de título | `<h1>` a `<h6>` |
 | **Ctrl + Z / Y** | Desfazer / Refazer alteração | N/A |
 | **Escape** | Cancela sequência de comando ativa | N/A |
 
 ## Padrões de Formatação e Regras Estruturais
 
-Para manter a consistência estética do blog, a equipe deve observar as seguintes diretrizes de uso da ferramenta:
+### Estruturação de Conteúdo
 
-### Estruturação de Parágrafos
+* A tag `<p>` deve delimitar cada bloco principal de informação.
+* Para manter a consistência visual do espaçamento entre parágrafos, recomenda-se a inserção de duas tags `<br>` após o fechamento de cada parágrafo (`</p><br><br>`).
 
-* A tag `<p>` deve delimitar cada bloco principal de pensamento ou informação.
-* Utilize o atalho **Ctrl + P** com o texto selecionado para garantir o fechamento correto da tag.
+### Limpeza de Importação
 
-### Controle de Espaçamento Interno
-
-* **Quebras Simples:** Utilize **Ctrl + L** (`<br>`) para quebras de linha dentro do mesmo bloco de texto.
-* **Espaçamento entre Blocos:** Para manter o padrão visual de espaçamento duplo entre parágrafos, recomenda-se a inserção de duas tags `<br>` após o fechamento de cada parágrafo (`</p><br><br>`).
+* O sistema remove automaticamente atributos de identificação desnecessários (`<a id="...">`) gerados por editores de texto externos.
 
 ## Guia de Instalação e Execução
 
 ### Requisitos de Sistema
 
-O aplicativo é distribuído como um executável independente (Standalone), não sendo necessária a instalação prévia de interpretadores Python ou bibliotecas adicionais no ambiente do usuário.
+O aplicativo é distribuído como um executável independente (Standalone), não sendo necessária a instalação de interpretadores Python ou bibliotecas adicionais.
 
 ### Instalação e Execução
-Para utilizar o ReditorHTML sem a necessidade de configurar um ambiente de desenvolvimento Python, você pode baixar o executável diretamente pelo link abaixo:
 
-Download do Aplicativo (.exe): [ReditorHTML.exe](https://github.com/taviowolff/ReditorHTML/blob/main/dist/ReditorHTML.exe)
-
-Obs: Após baixar o arquivo, basta executá-lo para iniciar o editor. Caso o Windows exiba um alerta de segurança (SmartScreen), clique em "Mais informações" e "Executar assim mesmo", pois o executável não possui assinatura digital de desenvolvedor.
+1. Baixe o executável: [ReditorHTML.exe](https://github.com/taviowolff/ReditorHTML/blob/main/dist/ReditorHTML.exe)
+2. Execute o arquivo `ReditorHTML.exe`.
+3. Caso o Windows SmartScreen exiba um alerta, selecione "Mais informações" e "Executar assim mesmo".
 
 ### Instruções de Uso
 
-1. Execute o arquivo `ReditorHTML.exe`.
-2. Insira o texto original no painel esquerdo.
-3. Utilize os atalhos para aplicar a formatação desejada.
-4. Clique em **Copiar HTML** ou utilize o menu **Arquivo > Salvar** para obter o código final.
+1. Importe um arquivo .docx através do menu Arquivo ou insira o texto no painel esquerdo.
+2. Utilize os atalhos para aplicar a formatação necessária.
+3. Utilize o botão **Copiar HTML** para transferir o código processado para a área de transferência.
 
 ---
 
 ## Informações Técnicas
 
 * **Desenvolvedor:** Otávio Wolff Buffon
-* **Versão:** 1.2
-* **Ambiente:** Python 3.14.0/ Tkinter
+* **Versão:** 1.3 (2026)
+* **Ambiente:** Python 3.14.0 / Tkinter / Mammoth / TkinterWeb
