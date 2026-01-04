@@ -4,6 +4,8 @@ import html
 import re
 from tkinterweb import HtmlFrame
 from tkinter import scrolledtext, messagebox, filedialog
+import webbrowser
+import sys, os
 
 class HTMLTranslatorApp:
     def __init__(self, master):
@@ -11,10 +13,21 @@ class HTMLTranslatorApp:
         master.title("ReditorHTML")
         
         # --- CARREGAMENTO DO ÍCONE ---
+        def resource_path(relative_path):
+            """ Obtém o caminho absoluto para o recurso, funciona para dev e PyInstaller """
+            try:
+                # O PyInstaller cria uma pasta temporária e armazena o caminho em _MEIPASS
+                base_path = sys._MEIPASS
+            except Exception:
+                base_path = os.path.abspath(".")
+            return os.path.join(base_path, relative_path)
+
         try:
-            # Ajustado para o nome real do seu arquivo: icon.ico
-            master.iconbitmap('icon.ico')
+            # Busca o ícone usando o caminho absoluto resolvido pela função
+            icon_path = resource_path('icon.ico')
+            master.iconbitmap(icon_path)
         except:
+            # Se falhar (ex: arquivo não existe na pasta de dev), o app abre com o ícone padrão
             pass
         
         # DEFINIÇÃO DE TEMAS
@@ -72,9 +85,10 @@ class HTMLTranslatorApp:
         self.input_text = scrolledtext.ScrolledText(self.input_frame, wrap=tk.WORD, height=20, width=50, undo=True, autoseparators=True)
         self.input_text.pack(fill=tk.BOTH, expand=True)
 
-        # O Visualizador Web (NÃO configurado no set_theme para evitar erro -bg)
         self.html_output = HtmlFrame(self.output_frame, messages_enabled=False)
         self.html_output.pack(fill=tk.BOTH, expand=True)
+
+        self.cover_frame = tk.Frame(self.output_frame)
 
         self.bind_shortcuts()
         self.input_text.bind("<<Modified>>", self.update_html_output)
@@ -98,6 +112,19 @@ class HTMLTranslatorApp:
         
         self.input_text.config(bg=colors['text_bg'], fg=colors['fg'], insertbackground=colors['insert'])
         self.copy_button.config(bg=colors['button_bg'], fg=colors['fg'])
+
+        try:
+            target_bg = "#2b2b2b" if theme_name == 'dark' else "white"
+            self.html_output.config(bg=target_bg)
+        except:
+            pass 
+
+        self.force_refresh_preview()
+
+    def force_refresh_preview(self):
+        """Força a re-renderização do HTML com base no tema atual."""
+        self.input_text.edit_modified(True)
+        self.update_html_output(None)
 
     def import_docx_dialog(self):
         filepath = filedialog.askopenfilename(filetypes=[("Arquivos Word", "*.docx")])
@@ -141,8 +168,34 @@ class HTMLTranslatorApp:
         messagebox.showinfo("Atalhos", shortcuts_text)
 
     def show_info(self):
-        messagebox.showinfo("Sobre", "ReditorHTML\n\nDesenvolvido por: Otávio Buffon\nVersão: 1.3 (2026)")
+        # Cria uma janela personalizada em vez do messagebox padrão
+        about_window = tk.Toplevel(self.master)
+        about_window.title("Sobre")
+        about_window.geometry("300x200")
+        about_window.config(bg=self.themes[self.current_theme]['bg'])
+        about_window.resizable(False, False)
 
+        # Texto de Informação
+        fg_color = self.themes[self.current_theme]['fg']
+        bg_color = self.themes[self.current_theme]['bg']
+
+        tk.Label(about_window, text="ReditorHTML", font=("Arial", 14, "bold"), 
+                 bg=bg_color, fg=fg_color).pack(pady=10)
+        
+        tk.Label(about_window, text="Desenvolvido por: Otávio Buffon\nVersão: 1.3.1 (2026)", 
+                 bg=bg_color, fg=fg_color).pack(pady=5)
+
+        # Link do LinkedIn
+        link_label = tk.Label(about_window, text="Meu LinkedIn", fg="#5fb3b3", 
+                              bg=bg_color, cursor="hand2", font=("Arial", 10, "underline"))
+        link_label.pack(pady=10)
+        
+        # Função para abrir o navegador
+        link_label.bind("<Button-1>", lambda e: webbrowser.open_new("www.linkedin.com/in/ot%C3%A1vio-buffon/"))
+
+        # Botão Fechar
+        tk.Button(about_window, text="Fechar", command=about_window.destroy,
+                  bg=self.themes[self.current_theme]['button_bg'], fg=fg_color).pack(pady=5)
     def handle_return_key(self, event):
         self.input_text.edit_modified(False)
         self.input_text.insert(tk.INSERT, '\n')
@@ -191,13 +244,41 @@ class HTMLTranslatorApp:
 
     def update_html_output(self, event):
         if self.input_text.edit_modified():
-            # Renderiza o código HTML no painel web
             raw_text = self.input_text.get("1.0", tk.END)
-            self.html_output.load_html(raw_text) 
+            
+            # Definimos as cores do tema
+            is_dark = self.current_theme == 'dark'
+            bg_color = "#2b2b2b" if is_dark else "white"
+            text_color = "white" if is_dark else "black"
+            heading_color = "#5fb3b3" if is_dark else "black"
+
+            # 1. Colocamos o "escudo" por cima do preview imediatamente
+            # O place com relwidth e relheight garante que ele cubra tudo sem mover nada
+            self.cover_frame.config(bg=bg_color)
+            self.cover_frame.place(in_=self.html_output, relwidth=1, relheight=1)
+
+            style = f"""
+            <style>
+                html, body {{ 
+                    background-color: {bg_color} !important; 
+                    color: {text_color}; 
+                    font-family: sans-serif; 
+                    padding: 10px;
+                }}
+                h1, h2, h3, h4, h5, h6 {{ color: {heading_color}; }}
+            </style>
+            """
+            full_html = style + raw_text
+            
+            # Carregar o conteúdo (o flash branco acontece atrás do cover_frame)
+            self.html_output.load_html(full_html) 
+            
+            # Remover o escudo após um tempo mínimo, quando o motor já processou o CSS
+            self.master.after(60, lambda: self.cover_frame.place_forget())
+            
             self.input_text.edit_modified(False)
 
     def copy_to_clipboard(self):
-        # Copia o código do editor da esquerda
         html_to_copy = self.input_text.get("1.0", tk.END).strip()
         self.master.clipboard_clear()
         self.master.clipboard_append(html_to_copy)
